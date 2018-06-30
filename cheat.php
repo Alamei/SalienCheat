@@ -427,6 +427,16 @@ do
 			$RandomizeZone = 1;
 		}
 	}
+
+	if( isset( $_SERVER[ 'AUTO_RELOAD' ] ) && (bool)$_SERVER[ 'AUTO_RELOAD' ] )
+	{
+		clearstatcache();
+		if ( $LocalScriptHash !== sha1( trim( file_get_contents( __FILE__ ) ) ) )
+		{
+			Msg("{lightred}Script Changed! Restarting.");
+			exit;
+		}
+	}
 }
 while( true );
 
